@@ -1,6 +1,6 @@
-#include "vector.hpp"
-#include "operators.hpp" 
-#include "linMath.hpp"
+#include "Vector.hpp"
+#include "Operators.hpp" 
+#include "LinAlgMath.hpp"
 #include <iostream>
 #include <cassert>
 

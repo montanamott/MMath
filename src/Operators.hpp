@@ -1,7 +1,7 @@
 #ifndef OPERATORS 
 #define OPERATORS
 
-#include "vector.hpp"
+#include "Vector.hpp"
 
 // Generalized element wise multiplication 
 template <typename T, int N> 

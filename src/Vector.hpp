@@ -24,6 +24,67 @@ struct vec {
     }
 };
 
+// Specialized, 2 component vector
+template <typename T> struct vec<T, 2> {
+    union {
+        T data[2]; 
+        struct {T x, y; }; 
+    };
+
+    explicit vec(const T single) {
+        x = single; 
+        y = single;
+    }
+
+    vec(const std::initializer_list<T> list) {
+        x = list.begin()[0];
+        y = list.begin()[1]; 
+    }
+
+    vec(const T x_in, const T y_in) {
+        x = x_in; 
+        y = y_in; 
+    }
+
+    vec() {
+        x = T(); 
+        y = T();
+    }
+};
+
+// Specialized, 3 component vector
+template <typename T> struct vec<T, 3> {
+    union {
+        T data[3]; 
+        struct {T x, y, z; }; 
+        struct {T r, g, b; };
+    };
+
+    explicit vec(const T single) {
+        x = single; 
+        y = single;
+        z = single;
+    }
+
+    vec(const std::initializer_list<T> list) {
+        x = list.begin()[0];
+        y = list.begin()[1]; 
+        z = list.begin()[2];
+    }
+
+    vec(const T x_in, const T y_in, const T z_in) {
+        x = x_in; 
+        y = y_in; 
+        z = z_in; 
+    }
+
+    vec() {
+        x = T(); 
+        y = T();
+        z = T();
+    }
+};
+
 // Specialized, 4 component vector
 template <typename T> struct vec<T, 4> {
     union {
@@ -33,19 +94,33 @@ template <typename T> struct vec<T, 4> {
     };
 
     explicit vec(const T single) {
-        for(unsigned i = 0; i < 4; ++i) 
-        { data[i] = single; }
+        x = single; 
+        y = single;
+        z = single; 
+        w = single; 
     }
 
     vec(const std::initializer_list<T> list) {
-        for(unsigned i = 0; i < 4; ++i) 
-        { data[i] = list.begin()[i]; }
+        x = list.begin()[0];
+        y = list.begin()[1]; 
+        z = list.begin()[2]; 
+        w = list.begin()[3]; 
+    }
+    
+    vec(const T x_in, const T y_in, const T z_in, const T w_in) {
+        x = x_in; 
+        y = y_in; 
+        z = z_in; 
+        w = w_in;
     }
 
     vec() {
-        for(unsigned i = 0; i < 4; ++i) 
-        { data[i] = T(); }
+        x = T(); 
+        y = T();
+        z = T(); 
+        w = T(); 
     }
 };
+
 
 #endif

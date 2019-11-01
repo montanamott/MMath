@@ -4,6 +4,12 @@
 #include <iostream>
 #include <cassert>
 
+bool floatEq(float a, float b)
+{
+    if(a < b) return b - a < 0.00001f; 
+    return a - b < 0.00001f; 
+}
+
 // Tests an empty constructor for the general and specialized template cases
 void testEmptyConstructor() 
 {
@@ -41,22 +47,52 @@ void testSingleElementConstructor()
     for(unsigned i = 0; i < 3; ++i) { assert(b.data[i] == 19.99f); }
 }
 
+void testMultiElementConstructor() 
+{
+    vec<int, 2> a(0, 1); 
+    for(unsigned i = 0; i < 2; ++i) { assert(a.data[i] == i); }
+
+    vec<int, 3> b(0, 1, 2); 
+    for(unsigned i = 0; i < 3; ++i) { assert(b.data[i] == i); }
+
+    vec<int, 4> c(0, 1, 2, 3); 
+    for(unsigned i = 0; i < 4; ++i) { assert(c.data[i] == i); }
+}
+
+void testDotProduct() 
+{
+    vec<float, 4> a = {1.0f, 2.0f, 3.0f, 4.0f}; 
+    vec<float, 4> b = {4.0f, 3.0f, 2.0f, 1.0f}; 
+    assert(dot(a, b) == 20.0f); 
+
+    vec<float, 5> c = {1.0f, 2.0f, 3.0f, 4.0f, 1.0f}; 
+    vec<float, 5> d = {4.0f, 3.0f, 2.0f, 1.0f, -1.0f}; 
+    assert(floatEq(dot(c, d), 19.0f));
+
+}
+
+void testCrossProduct()
+{
+    vec<int, 3> a = {1, 2, 3}; 
+    vec<int, 3> b = {3, 4, 5};
+    vec<int, 3> res = cross(a, b); 
+
+    assert(res.x == -2); 
+    assert(res.y == 4);
+    assert(res.z == -2);
+}
+
 int main() 
 {
     std::cout << "Testing constructors...\n"; 
     testEmptyConstructor();
     testInitListConstructor();
     testSingleElementConstructor();
+    testMultiElementConstructor();
 
-    // Checking SIMD 
-    vec<float, 4> hopeVec;
-
-    while(std::cin >> hopeVec)
-    {
-        std::cout << hopeVec;
-        vec<float, 4> secVec = {2.0f, 3.0f, 1.0f, 2.0f};
-        std::cout << dot(hopeVec, secVec) << '\n';
-    }
+    std::cout << "Testing math functions...\n";
+    testDotProduct();
+    testCrossProduct();
 
     std::cout << "All Tests Pass!\n";
 }

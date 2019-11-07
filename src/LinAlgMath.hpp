@@ -35,6 +35,7 @@ T dot(const vec<T, 2>& a, const vec<T, 2> b)
 }
 
 // Specialized 3-Vector CROSS PRODUCT
+// Potential TODO: Might make this use SSE intrinsics since the assembly for this is... not good. 
 template <typename T> 
 vec<T, 3>  cross(const vec<T, 3>& a, const vec<T, 3> b)
 {

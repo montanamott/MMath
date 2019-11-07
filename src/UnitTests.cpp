@@ -1,4 +1,5 @@
 #include "Vector.hpp"
+#include "Point.hpp"
 #include "Operators.hpp" 
 #include "LinAlgMath.hpp"
 #include <iostream>
@@ -82,6 +83,40 @@ void testCrossProduct()
     assert(res.z == -2);
 }
 
+void testPointVecBehavior()
+{
+    vec<int, 3> avec = {1, 2, 3}; 
+    point<int, 3> bpnt = {10, 7, 3};
+    
+    point<int, 3> res = avec + bpnt;
+    assert(res.x == 11); 
+    assert(res.y == 9);
+    assert(res.z == 6);
+
+    res = bpnt + avec; 
+    assert(res.x == 11); 
+    assert(res.y == 9);
+    assert(res.z == 6);
+
+    res = bpnt - avec; 
+    assert(res.x == 9); 
+    assert(res.y == 5);
+    assert(res.z == 0);
+}
+
+void testPointPointBehavior() 
+{
+    point<int, 4> a = {5, 6, 7, 8}; 
+    point<int, 4> b = {1, 1, 2, 3}; 
+
+    vec<int, 4> res = a - b; 
+    assert(res.x == 4); 
+    assert(res.y == 5);
+    assert(res.z == 5);
+    assert(res.w == 5);
+
+}
+
 int main() 
 {
     std::cout << "Testing constructors...\n"; 
@@ -93,6 +128,11 @@ int main()
     std::cout << "Testing math functions...\n";
     testDotProduct();
     testCrossProduct();
+
+    std::cout << "Testing point behavior...\n"; 
+    testPointPointBehavior(); 
+    testPointVecBehavior(); 
+
 
     std::cout << "All Tests Pass!\n";
 }
